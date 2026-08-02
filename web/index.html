@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table Read Tools — un plugin per a Beat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+	:root {
+		color-scheme: light dark;
+		--bg: #f4f4f5;
+		--card-bg: #ffffff;
+		--border: #d9d9dd;
+		--text: #1c1c1e;
+		--muted: #6b6b70;
+		--accent: #3b6fe0;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: #17171a;
+			--card-bg: #222225;
+			--border: #35353a;
+			--text: #f2f2f3;
+			--muted: #a3a3a8;
+		}
+	}
+	* { box-sizing: border-box; }
+	html { scroll-behavior: smooth; }
+	body {
+		margin: 0;
+		font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+		font-weight: 400;
+		background: var(--bg);
+		color: var(--text);
+		line-height: 1.5;
+	}
+	a { color: var(--accent); }
+	.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 18px 0;
+		border-bottom: 1px solid var(--border);
+	}
+	.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
+	.lang-switch a {
+		font-size: 13px;
+		text-decoration: none;
+		color: var(--muted);
+		padding: 4px 8px;
+		border-radius: 6px;
+	}
+	.lang-switch a.active { color: var(--text); background: var(--card-bg); border: 1px solid var(--border); }
+
+	header.hero {
+		text-align: center;
+		padding: 64px 0 40px 0;
+	}
+	header.hero h1 {
+		font-size: clamp(28px, 5vw, 44px);
+		font-weight: 800;
+		margin: 0 0 14px 0;
+	}
+	header.hero p.tagline {
+		font-size: 18px;
+		color: var(--muted);
+		max-width: 640px;
+		margin: 0 auto 28px auto;
+	}
+	.pill-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 36px; }
+	.pill {
+		font-size: 12px;
+		font-weight: 600;
+		padding: 5px 12px;
+		border-radius: 20px;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		color: var(--muted);
+	}
+
+	.shot {
+		display: block;
+		width: 100%;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	section.feature {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 48px;
+		align-items: center;
+		padding: 56px 0;
+		border-bottom: 1px solid var(--border);
+	}
+	section.feature:last-of-type { border-bottom: none; }
+	section.feature.reverse .feature-text { order: 2; }
+	section.feature.reverse .feature-shot { order: 1; }
+	.feature-text h2 { font-size: 24px; font-weight: 700; margin: 0 0 12px 0; }
+	.feature-text p { color: var(--muted); font-size: 15px; }
+	.feature-text ul { color: var(--muted); font-size: 15px; padding-left: 20px; }
+	.feature-shot img {
+		width: 100%;
+		display: block;
+	}
+	@media (max-width: 760px) {
+		section.feature, section.feature.reverse {
+			grid-template-columns: 1fr;
+		}
+		section.feature.reverse .feature-text,
+		section.feature.reverse .feature-shot { order: initial; }
+	}
+
+	.install {
+		padding: 56px 0;
+		text-align: center;
+	}
+	.install h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+	.install p { color: var(--muted); }
+	.steps {
+		text-align: left;
+		max-width: 560px;
+		margin: 28px auto 0 auto;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 24px 28px;
+	}
+	.steps li { margin-bottom: 14px; }
+	code {
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 6px;
+		padding: 2px 6px;
+		font-size: 13px;
+	}
+	.path-box {
+		display: block;
+		margin-top: 6px;
+		padding: 10px 12px;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		font-size: 12.5px;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.download-row { display: flex; justify-content: center; margin: 28px 0; }
+	.download-card {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		max-width: 360px;
+		width: 100%;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 20px;
+		text-decoration: none;
+		color: var(--text);
+		transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+	.download-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px rgba(0,0,0,0.35); }
+	.download-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: 10px;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--text);
+		flex-shrink: 0;
+	}
+	.download-icon svg { width: 22px; height: 22px; }
+	.download-card > div:nth-child(2) { display: flex; flex-direction: column; flex: 1; min-width: 0; text-align: left; }
+	.download-title { font-weight: 700; font-size: 1rem; }
+	.download-file {
+		color: var(--muted);
+		font-size: 0.78rem;
+		font-family: "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 9px 16px;
+		border-radius: 10px;
+		font-weight: 600;
+		font-size: 0.85rem;
+		text-decoration: none;
+		border: 1px solid transparent;
+		transition: transform 0.15s ease, background 0.15s ease;
+	}
+	.btn-primary { background: var(--accent); color: #fff; }
+	.btn-primary:hover { transform: translateY(-1px); }
+
+	.site-footer { border-top: 1px solid var(--border); padding: 28px 0; }
+	.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 0.85rem; }
+	.footer-version { font-weight: 600; }
+	.project-credits { color: var(--muted); font-size: 0.86rem; line-height: 1.65; text-align: center; padding-top: 24px; }
+	.project-credits p { margin: 4px auto; max-width: 92ch; }
+	.project-credits strong { color: var(--text); }
+	.project-credits a { color: var(--text); }
+	.footer-qr { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 28px; padding: 24px 0 4px; }
+	.footer-logo { height: 52px; width: auto; flex-shrink: 0; }
+
+	.cast-band {
+		background-size: cover;
+		background-position: center;
+		position: relative;
+	}
+	.cast-overlay { background: rgba(10,10,12,0.78); padding: 64px 0; }
+	.cast-overlay h2 { color: #fff; text-align: center; font-size: 26px; font-weight: 800; margin: 0 0 8px 0; }
+	.cast-sub {
+		color: #d5d5da;
+		text-align: center;
+		max-width: 580px;
+		margin: 0 auto 44px auto;
+		font-size: 15px;
+		font-style: italic;
+	}
+
+	.testimonials { max-width: 560px; margin: 0 auto; text-align: center; position: relative; min-height: 230px; }
+	.testimonial { display: none; }
+	.testimonial.active { display: block; animation: testimonialIn 450ms ease; }
+	.testimonial img {
+		width: 84px;
+		height: 84px;
+		border-radius: 50%;
+		object-fit: cover;
+		margin: 0 auto 18px auto;
+		border: 3px solid rgba(255,255,255,0.85);
+		box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+	}
+	.testimonial-quote { color: #fff; font-size: 17px; font-weight: 500; line-height: 1.55; margin: 0 0 14px 0; }
+	.testimonial-quote::before { content: "“"; }
+	.testimonial-quote::after { content: "”"; }
+	.testimonial-name { color: #bdbdc4; font-size: 12.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+	@keyframes testimonialIn {
+		from { opacity: 0; transform: translateY(8px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	.testimonial-dots { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
+	.testimonial-dots .dot {
+		width: 8px;
+		height: 8px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgba(255,255,255,0.3);
+		cursor: pointer;
+	}
+	.testimonial-dots .dot.active { background: rgba(255,255,255,0.9); }
+	.cast-footnote { text-align: center; color: #86868e; font-size: 11.5px; margin-top: 40px; }
+
+	.hero-subtitle { font-size: clamp(17px, 2.4vw, 21px); font-weight: 500; color: var(--text); margin: 0 0 6px 0; }
+	.hero-tagline-small { font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0 0 26px 0; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+	<nav>
+		<div class="brand">🎭 Table Read Tools</div>
+		<div class="lang-switch">
+			<a href="index.en.html">EN</a>
+			<a href="index.html" class="active">CA</a>
+		</div>
+	</nav>
+</div>
+
+<header class="hero">
+	<div class="wrap">
+		<h1>Table Read Tools</h1>
+		<p class="hero-subtitle">El teu guió, com mai l'havies vist.</p>
+		<p class="hero-tagline-small">Deixa que parlin els teus personatges.</p>
+		<p class="tagline">Un plugin per al programa de guionatge Beat. Afegeix fotos als personatges i localitzacions, i converteix els diàlegs en una conversa tipus xat o en un lector de "table read" en directe.</p>
+		<div class="pill-row">
+			<span class="pill">Fotos de personatges i localitzacions</span>
+			<span class="pill">Conversa tipus xat</span>
+			<span class="pill">Table Read Mode</span>
+			<span class="pill">4 idiomes</span>
+			<span class="pill">Exporta / Importa</span>
+		</div>
+		<img class="shot" src="Images/hero.png" alt="Finestra principal de Table Read Tools dins de Beat">
+	</div>
+</header>
+
+<div class="wrap">
+
+	<section class="feature">
+		<div class="feature-text">
+			<h2>Posa cara a cada personatge i localització</h2>
+			<p>Arrossega una foto des del Finder sobre la targeta d'un personatge o localització, o copia una imatge i enganxa-la (⌘V). Les fotos es redimensionen i queden incrustades directament dins l'arxiu del guió — sense arxius externs ni enllaços trencats.</p>
+			<ul>
+				<li>Reordena els personatges per importància amb ◀ ▶</li>
+				<li>Aquest ordre decideix qui protagonitza cada escena a la conversa i al lector</li>
+			</ul>
+		</div>
+		<div class="feature-shot">
+			<img src="Images/characters.png" alt="Pestanya de Personatges amb fotos i ordre d'importància">
+		</div>
+	</section>
+
+	<section class="feature reverse">
+		<div class="feature-text">
+			<h2>Llegeix el guió com una conversa</h2>
+			<p>Cada escena es converteix en un xat: els diàlegs del protagonista a la dreta, la resta a l'esquerra amb el seu propi color, avatars a cada línia, una banda amb la foto de la localització, i una hora acumulada per a cada missatge.</p>
+			<ul>
+				<li>Les línies d'acció apareixen com a avisos discrets i centrats</li>
+				<li>Cada escena acaba amb el temps total, ben visible</li>
+			</ul>
+		</div>
+		<div class="feature-shot">
+			<img src="Images/conversation.png" alt="Pestanya de Conversa mostrada com a bombolles de xat">
+		</div>
+	</section>
+
+	<section class="feature">
+		<div class="feature-text">
+			<h2>Table Read Mode</h2>
+			<p>Un lector a pantalla completa, sense distraccions, per llegir el guió en veu alta. El cercle de qui parla s'il·lumina, amb un cronòmetre circular que mostra quant queda de la seva frase — calculat amb una estimació de velocitat de lectura, no a ull.</p>
+			<ul>
+				<li>Reproducció automàtica, o pas a pas amb el teclat</li>
+				<li>Bombolla de text amb una cua tipus còmic que apunta a qui parla</li>
+				<li>Finestra redimensionable; res no es mou de lloc</li>
+			</ul>
+		</div>
+		<div class="feature-shot">
+			<img src="Images/player.png" alt="Table Read Mode amb un cercle de personatge il·luminat">
+		</div>
+	</section>
+
+	<section class="feature reverse">
+		<div class="feature-text">
+			<h2>Parla el teu idioma</h2>
+			<p>La interfície del plugin està disponible en català, anglès, francès i èuscar — es detecta sola segons l'idioma del teu Mac la primera vegada que l'obres, i es pot canviar en qualsevol moment des de la capçalera.</p>
+			<p>Les fotos viuen dins del teu arxiu <code>.fountain</code>, així que hi viatgen soles. Exportar/Importar et permet reutilitzar les mateixes fotos en guions diferents, o guardar-ne una còpia de seguretat independent.</p>
+		</div>
+		<div class="feature-shot">
+			<img src="Images/languages.png" alt="Selector d'idioma a la capçalera">
+		</div>
+	</section>
+
+</div>
+
+<section class="cast-band" style="background-image: url('Images/loc-casa.jpg')">
+	<div class="cast-overlay">
+		<div class="wrap">
+			<h2>No et refiïs només de la nostra paraula</h2>
+			<p class="cast-sub">Deixa que parlin els teus protagonistes.</p>
+
+			<div class="testimonials" id="testimonials">
+				<div class="testimonial active">
+					<img src="Images/cast-tomeu.jpg" alt="Tomeu">
+					<p class="testimonial-quote">Vam sentir l'escena en veu alta i de seguida es van notar les frases que sobraven.</p>
+					<div class="testimonial-name">Tomeu</div>
+				</div>
+				<div class="testimonial">
+					<img src="Images/cast-mare.jpg" alt="Mare">
+					<p class="testimonial-quote">Escoltar-nos llegits diu més sobre el ritme d'una escena que deu lectures en silenci.</p>
+					<div class="testimonial-name">Mare</div>
+				</div>
+				<div class="testimonial">
+					<img src="Images/cast-joharlys.jpg" alt="Joharlys">
+					<p class="testimonial-quote">Es nota a l'instant quan una escena s'allarga massa. Aquesta s'allargava.</p>
+					<div class="testimonial-name">Joharlys</div>
+				</div>
+				<div class="testimonial">
+					<img src="Images/cast-antonyito.jpg" alt="Antonyito">
+					<p class="testimonial-quote">Vam sentir com sonava l'escena abans de rodar ni un sol pla.</p>
+					<div class="testimonial-name">Antonyito</div>
+				</div>
+			</div>
+
+			<div class="testimonial-dots" id="testimonialDots">
+				<button class="dot active" data-index="0" aria-label="Tomeu"></button>
+				<button class="dot" data-index="1" aria-label="Mare"></button>
+				<button class="dot" data-index="2" aria-label="Joharlys"></button>
+				<button class="dot" data-index="3" aria-label="Antonyito"></button>
+			</div>
+
+			<p class="cast-footnote">Tomeu, Mare, Joharlys i Antonyito són personatges de prova generats amb IA, creats només per construir i fotografiar aquest plugin.</p>
+		</div>
+	</div>
+</section>
+
+<script>
+	(function () {
+		var items = document.querySelectorAll("#testimonials .testimonial")
+		var dots = document.querySelectorAll("#testimonialDots .dot")
+		var current = 0
+		var timer
+
+		function show(index) {
+			items.forEach(function (el, i) { el.classList.toggle("active", i === index) })
+			dots.forEach(function (el, i) { el.classList.toggle("active", i === index) })
+			current = index
+		}
+
+		function next() { show((current + 1) % items.length) }
+
+		function restart() {
+			clearInterval(timer)
+			timer = setInterval(next, 6000)
+		}
+
+		dots.forEach(function (dot) {
+			dot.addEventListener("click", function () {
+				show(parseInt(dot.dataset.index, 10))
+				restart()
+			})
+		})
+
+		if (items.length) restart()
+	})()
+</script>
+
+<div class="install">
+	<div class="wrap">
+		<h2>Instal·lació</h2>
+		<p>Table Read Tools funciona totalment dins de Beat — no cal instal·lar res més.</p>
+
+		<div class="download-row">
+			<a href="https://github.com/lughdailh/table-read-tools/releases/latest/download/table-read-tools-latest-version-macos.zip" class="download-card">
+				<div class="download-icon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none"><path d="M16.1 3.5c.1 1-.3 2-.9 2.7-.6.7-1.6 1.3-2.6 1.2-.1-1 .4-2 1-2.7.6-.7 1.6-1.2 2.5-1.2zM19.5 17c-.5 1.1-.7 1.6-1.4 2.6-.9 1.4-2.2 3.1-3.8 3.1-1.4 0-1.8-.9-3.7-.9-1.9 0-2.4.9-3.7.9-1.6 0-2.8-1.5-3.7-2.9C1 16.9.5 12.6 2.3 10.2c1-1.3 2.5-2.1 4-2.1 1.4 0 2.3.9 3.5.9 1.2 0 1.9-.9 3.7-.9 1.2 0 2.5.6 3.4 1.7-3 1.6-2.5 5.9.6 7.2z" fill="currentColor"/></svg>
+				</div>
+				<div>
+					<span class="download-title">macOS</span>
+					<span class="download-file">table-read-tools-latest-version-macos.zip</span>
+				</div>
+				<span class="btn btn-primary">Descarrega</span>
+			</a>
+		</div>
+
+		<ol class="steps">
+			<li>Descomprimeix l'arxiu i copia la carpeta <code>Table Read Tools.beatPlugin</code> dins la carpeta de plugins de Beat:
+				<span class="path-box">~/Library/Containers/fi.KAPITAN.Beat/Data/Library/Application Support/Beat/Plugins/</span>
+			</li>
+			<li>Reinicia Beat si ja el tenies obert.</li>
+			<li>Obre un guió i vés a <strong>Tools → Table Read Tools</strong>.</li>
+		</ol>
+	</div>
+</div>
+
+<footer class="site-footer">
+	<div class="wrap footer-inner">
+		<span>Table Read Tools — plugin per a Beat</span>
+		<span class="footer-version">v0.4</span>
+	</div>
+	<div class="wrap project-credits">
+		<p><strong>Un projecte de Moiz i Bartra Produccions, SL &amp; El Català Emprenyat</strong> (<a href="https://emprenyat.cat">emprenyat.cat</a>).</p>
+		<p>Software ideat i dirigit per un humà, amb desenvolupament assistit per Claude.</p>
+		<p><a href="https://github.com/lughdailh/table-read-tools">Codi i documentació</a> · <a href="https://github.com/lughdailh/table-read-tools/blob/main/LICENSE">GPL-2.0-or-later</a></p>
+	</div>
+	<div class="wrap footer-qr">
+		<img src="Images/brand/antifa-cat.svg" alt="Antifeixista" class="footer-logo">
+		<img src="Images/brand/ece-banda.svg" alt="El Català Emprenyat" class="footer-logo">
+	</div>
+</footer>
+
+</body>
+</html>
