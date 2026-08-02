@@ -295,6 +295,10 @@
 
 	.hero-subtitle { font-size: clamp(17px, 2.4vw, 21px); font-weight: 500; color: var(--text); margin: 0 0 6px 0; }
 	.hero-tagline-small { font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0 0 26px 0; }
+
+	.video-section { text-align: center; padding: 8px 0 56px 0; }
+	.video-heading { font-size: 24px; font-weight: 700; margin: 0 0 20px 0; }
+	.demo-video { width: 100%; max-width: 900px; border-radius: 12px; background: #000; display: block; margin: 0 auto; }
 </style>
 </head>
 <body>
@@ -325,6 +329,14 @@
 		<img class="shot" src="Images/hero.png" alt="Table Read Tools main window in Beat">
 	</div>
 </header>
+
+<div class="wrap video-section">
+	<h2 class="video-heading">See it in action</h2>
+	<video class="demo-video" controls preload="metadata" poster="Images/hero.png">
+		<source src="table-read-tools-demo.mp4" type="video/mp4">
+		<track kind="subtitles" src="table-read-tools.vtt" srclang="en" label="English" default>
+	</video>
+</div>
 
 <div class="wrap">
 
