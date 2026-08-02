@@ -213,6 +213,36 @@
 	.project-credits a { color: var(--text); }
 	.footer-qr { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 28px; padding: 24px 0 4px; }
 	.footer-logo { height: 52px; width: auto; flex-shrink: 0; }
+	.support-buttons { width: 310px; display: flex; flex-direction: column; gap: 10px; }
+	.support-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		box-sizing: border-box;
+		min-height: 38px;
+		padding: 8px 16px;
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		color: var(--muted);
+		font-size: 0.82rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+	}
+	.support-link:hover { filter: brightness(0.94); }
+	.support-paypal,
+	.support-paypal:hover {
+		color: #003087;
+		background: #ffffff;
+		border-color: #ffffff;
+	}
+	.support-coffee,
+	.support-coffee:hover {
+		color: #111111;
+		background: #ffdd00;
+		border-color: #ffdd00;
+	}
 
 	.cast-band {
 		background-size: cover;
@@ -466,6 +496,10 @@
 	</div>
 	<div class="wrap footer-qr">
 		<img src="Images/brand/antifa-cat.svg" alt="Antifascist" class="footer-logo">
+		<div class="support-buttons">
+			<a href="https://www.paypal.com/ncp/payment/PLB-LY4PW9EJNVML" target="_blank" rel="noopener noreferrer" class="support-link support-paypal">Support us with PayPal</a>
+			<a href="https://www.buymeacoffee.com/totalamandanga" target="_blank" rel="noopener noreferrer" class="support-link support-coffee">Buy us a coffee</a>
+		</div>
 		<img src="Images/brand/ece-banda.svg" alt="El Català Emprenyat" class="footer-logo">
 	</div>
 </footer>
