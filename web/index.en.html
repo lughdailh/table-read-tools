@@ -57,9 +57,11 @@
 	.lang-switch a.active { color: var(--text); background: var(--card-bg); border: 1px solid var(--border); }
 
 	header.hero {
-		text-align: center;
+		text-align: left;
 		padding: 64px 0 40px 0;
 	}
+	.hero-inner { display: flex; align-items: center; gap: 44px; }
+	.hero-text { flex: 1 1 auto; min-width: 0; }
 	header.hero h1 {
 		font-size: clamp(28px, 5vw, 44px);
 		font-weight: 800;
@@ -69,9 +71,14 @@
 		font-size: 18px;
 		color: var(--muted);
 		max-width: 640px;
-		margin: 0 auto 28px auto;
+		margin: 0 0 28px 0;
 	}
-	.pill-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 36px; }
+	.pill-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; margin-bottom: 0; }
+	@media (max-width: 720px) {
+		header.hero { text-align: center; }
+		.hero-inner { flex-direction: column; }
+		.pill-row { justify-content: center; }
+	}
 	.pill {
 		font-size: 12px;
 		font-weight: 600;
@@ -294,13 +301,16 @@
 	.cast-footnote { text-align: center; color: #86868e; font-size: 11.5px; margin-top: 40px; }
 
 	.title-card {
-		width: 168px;
-		height: 168px;
+		width: 260px;
+		height: 260px;
+		flex: 0 0 auto;
 		object-fit: cover;
-		border-radius: 20px;
+		border-radius: 24px;
 		box-shadow: 0 16px 40px rgba(0,0,0,0.25);
-		margin: 0 auto 24px auto;
 		display: block;
+	}
+	@media (max-width: 720px) {
+		.title-card { width: 180px; height: 180px; margin: 0 auto 24px auto; }
 	}
 	.beat-badge {
 		display: inline-flex;
@@ -331,7 +341,7 @@
 
 <div class="wrap">
 	<nav>
-		<div class="brand">🎭 Table Read Tools</div>
+		<div class="brand">Table Read Tools</div>
 		<div class="lang-switch">
 			<a href="index.html">CA</a>
 			<a href="index.en.html" class="active">EN</a>
@@ -340,22 +350,24 @@
 </div>
 
 <header class="hero">
-	<div class="wrap">
+	<div class="wrap hero-inner">
 		<img class="title-card" src="Images/title-card.png" alt="Table Read Tools">
-		<h1>Table Read Tools</h1>
-		<a href="https://www.beat-app.fi" target="_blank" rel="noopener" class="beat-badge">
-			<img src="Images/beat-icon.png" alt="Beat">
-			<span>A plugin for Beat</span>
-		</a>
-		<p class="hero-subtitle">Your script, like you've never seen it before.</p>
-		<p class="hero-tagline-small">Let your characters speak.</p>
-		<p class="tagline">A plugin for the Beat screenwriting app. It adds photos to characters and locations, and turns your dialogue into a chat-style conversation or a live table-read player.</p>
-		<div class="pill-row">
-			<span class="pill">Character &amp; location photos</span>
-			<span class="pill">Chat-style conversation</span>
-			<span class="pill">Table Read Mode</span>
-			<span class="pill">4 languages</span>
-			<span class="pill">Export / Import</span>
+		<div class="hero-text">
+			<h1>Table Read Tools</h1>
+			<a href="https://www.beat-app.fi" target="_blank" rel="noopener" class="beat-badge">
+				<img src="Images/beat-icon.png" alt="Beat">
+				<span>A plugin for Beat</span>
+			</a>
+			<p class="hero-subtitle">Your script, like you've never seen it before.</p>
+			<p class="hero-tagline-small">Let your characters speak.</p>
+			<p class="tagline">A plugin for the Beat screenwriting app. It adds photos to characters and locations, and turns your dialogue into a chat-style conversation or a live table-read player.</p>
+			<div class="pill-row">
+				<span class="pill">Character &amp; location photos</span>
+				<span class="pill">Chat-style conversation</span>
+				<span class="pill">Table Read Mode</span>
+				<span class="pill">4 languages</span>
+				<span class="pill">Export / Import</span>
+			</div>
 		</div>
 	</div>
 </header>
