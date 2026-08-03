@@ -4,6 +4,8 @@
 
 **Table Read Tools** is a custom plugin for [Beat](https://www.beat-app.fi), the macOS Fountain screenwriting app. It adds photos to characters and locations, and turns your dialogue into either a chat-style conversation view or a live "table read" playback mode.
 
+**Version 1.0.0** · [Project website](https://emprenyat.cat/scripts/TableReadTools/) · [Changelog](CHANGELOG.md)
+
 Beat itself has no built-in support for character/location photos or for visualising dialogue as a conversation — this plugin adds all of that on top, without modifying your script.
 
 ---
@@ -67,6 +69,10 @@ Everything (photos, character order, chosen language) is saved either inside the
 | ← | Previous line |
 
 On-screen controls: **⏮** jumps back to the very start of the scene list, **▶ / ⏸** toggles automatic playback, **→** advances one line manually.
+
+## Credits
+
+Developed by **Lluís Bartra** under **El Català Emprenyat**, a software label of **Moiz i Bartra Produccions, SL**.
 
 ## License
 
