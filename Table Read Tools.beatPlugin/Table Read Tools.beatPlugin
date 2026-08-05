@@ -1,14 +1,25 @@
 /*
 
 Table Read Tools
-Description: Assigna una fotografia a cada personatge i a cada localització del guió, i mostra els diàlegs com una conversa de xat o com una lectura en veu alta (table read) ordenada per importància
-Version: 0.4
-Copyright: 2026
+Description: Add character and location photos, browse dialogue as conversations, and run visual table reads.
+Version: 1.0.0
+Copyright: Moiz i Bartra Produccions, SL & El Català Emprenyat 2026
+Image: screenshot.png
+
+<Description>
+	<p>Prepare and run visual table reads directly in Beat.</p>
+	<ul>
+		<li>Add portable photos to characters and locations.</li>
+		<li>Browse each scene as a chat-style conversation.</li>
+		<li>Reorder characters by importance.</li>
+		<li>Present dialogue in automatic or manual table-read mode.</li>
+		<li>Use the interface in Catalan, English, French, or Basque.</li>
+		<li>Export and import photo collections between screenplays.</li>
+	</ul>
+	<p>Photos and character order are stored in the screenplay, and the plugin works entirely offline.</p>
+</Description>
 
 */
-
-// Temporal, mentre depurem el plugin: obre una consola amb els Beat.log()
-Beat.openConsole()
 
 const SETTING_CHARACTER_PHOTOS = "characterPhotos"
 const SETTING_LOCATION_PHOTOS = "locationPhotos"

@@ -6,6 +6,8 @@
 
 **Version 1.0.0** · [Project website](https://emprenyat.cat/scripts/TableReadTools/) · [Changelog](CHANGELOG.md)
 
+![Table Read Tools in Beat](web/Images/hero.png)
+
 Beat itself has no built-in support for character/location photos or for visualising dialogue as a conversation — this plugin adds all of that on top, without modifying your script.
 
 ---
@@ -49,6 +51,10 @@ A safety-locked control at the bottom of the Characters tab lets you wipe every 
 ---
 
 ## Installation
+
+Install **Table Read Tools** from Beat's **Plugin Library**, then open it from the **Tools** menu.
+
+To install it manually instead:
 
 1. Copy the whole `Table Read Tools.beatPlugin` folder into Beat's plugin folder:
    ```

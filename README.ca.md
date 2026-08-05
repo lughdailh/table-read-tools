@@ -4,6 +4,8 @@
 
 **Table Read Tools** és un plugin fet a mida per a [Beat](https://www.beat-app.fi), el programa de guionatge en format Fountain per a Mac. Afegeix fotografies als personatges i a les localitzacions, i converteix els diàlegs del guió en una vista de conversa tipus xat o en un mode de lectura en veu alta ("table read") en directe.
 
+![Table Read Tools a Beat](web/Images/hero.png)
+
 Beat, de per si, no permet posar fotos a personatges ni localitzacions ni visualitzar els diàlegs com una conversa — aquest plugin ho afegeix tot per sobre, sense modificar el guió.
 
 ---
@@ -47,6 +49,10 @@ Un control bloquejat per seguretat, a la part inferior de la pestanya Personatge
 ---
 
 ## Instal·lació
+
+Instal·la **Table Read Tools** des de la **Plugin Library** de Beat i obre'l des del menú **Tools**.
+
+Per instal·lar-lo manualment:
 
 1. Copia la carpeta sencera `Table Read Tools.beatPlugin` dins la carpeta de plugins de Beat:
    ```
